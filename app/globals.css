@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Molaemah Brand Colors */
+:root {
+  /* Core brand colors */
+  --brand-navy-900: #0E2E5C;
+  --brand-navy-700: #103D77;
+  --brand-navy-500: #1B4F94;
+  --brand-orange-500: #F0A040;
+  --brand-orange-400: #F5B560;
+  --brand-orange-300: #FAD0A0;
+  
+  /* Neutrals */
+  --neutral-0: #FFFFFF;
+  --neutral-50: #F7F9FC;
+  --neutral-100: #EEF1F6;
+  --neutral-300: #D3DAE5;
+  --neutral-500: #7A8699;
+  --neutral-800: #1F2A3D;
+  --neutral-950: #0A1424;
+  
+  /* Light mode theme tokens */
+  --background: var(--neutral-0);
+  --foreground: var(--neutral-950);
+  --card: var(--neutral-0);
+  --card-foreground: var(--neutral-950);
+  --popover: var(--neutral-0);
+  --popover-foreground: var(--neutral-950);
+  --primary: var(--brand-navy-700);
+  --primary-foreground: var(--neutral-0);
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--brand-navy-900);
+  --accent: var(--brand-orange-500);
+  --accent-foreground: var(--brand-navy-900);
+  --muted: var(--neutral-50);
+  --muted-foreground: var(--neutral-500);
+  --border: var(--neutral-100);
+  --input: var(--neutral-100);
+  --ring: var(--brand-navy-700);
+  --destructive: #dc2626;
+  --destructive-foreground: #fef2f2;
+  
+  /* Chart colors */
+  --chart-1: var(--brand-navy-700);
+  --chart-2: var(--brand-orange-500);
+  --chart-3: var(--brand-navy-500);
+  --chart-4: var(--brand-orange-400);
+  --chart-5: var(--brand-orange-300);
+  
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Dark mode theme tokens */
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-50);
+  --card: #0F1B30;
+  --card-foreground: var(--neutral-50);
+  --popover: #0F1B30;
+  --popover-foreground: var(--neutral-50);
+  --primary: var(--brand-orange-500);
+  --primary-foreground: var(--brand-navy-900);
+  --secondary: #142540;
+  --secondary-foreground: var(--neutral-50);
+  --accent: var(--brand-navy-500);
+  --accent-foreground: var(--neutral-0);
+  --muted: #142540;
+  --muted-foreground: #9AA8BF;
+  --border: #1B2C47;
+  --input: #142540;
+  --ring: var(--brand-orange-500);
+  --destructive: #991b1b;
+  --destructive-foreground: #fecaca;
+}
+
+@theme inline {
+  --font-sans: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Brand color utilities */
+  --color-brand-navy-900: var(--brand-navy-900);
+  --color-brand-navy-700: var(--brand-navy-700);
+  --color-brand-navy-500: var(--brand-navy-500);
+  --color-brand-orange-500: var(--brand-orange-500);
+  --color-brand-orange-400: var(--brand-orange-400);
+  --color-brand-orange-300: var(--brand-orange-300);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* RTL-specific styles */
+  html[dir="rtl"] {
+    direction: rtl;
+  }
+}
+
+/* ── Theme switching ──────────────────────────────────────────────
+   A smooth full-page cross-fade between light and dark. Two layers,
+   picked automatically per browser:
+   1. View Transitions API → the whole page (old theme) fades out while
+      the new theme fades in, in sync.
+   2. Fallback → a colour cross-fade, enabled only while switching (via
+      the .theme-transition class on <html>) so it never adds lag to
+      ordinary hover/focus colour changes.                           */
+
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    fill 0.5s ease,
+    stroke 0.5s ease,
+    box-shadow 0.5s ease !important;
+}
+
+@keyframes theme-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Cross-fade the outgoing and incoming theme snapshots. */
+::view-transition-old(root) {
+  animation: theme-fade-out 0.5s ease both;
+}
+::view-transition-new(root) {
+  animation: theme-fade-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* Custom scrollbar for RTL */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-navy-500);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-navy-700);
+}
